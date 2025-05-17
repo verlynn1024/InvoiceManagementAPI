@@ -1,4 +1,4 @@
-using InvoiceManagementAPI.Domain.Entities;
+﻿using InvoiceManagementAPI.Domain.Entities;
 
 namespace InvoiceManagementAPI.Application.Common.Models;
 
@@ -20,4 +20,3 @@ public class LookupDto
         }
     }
 }
-
