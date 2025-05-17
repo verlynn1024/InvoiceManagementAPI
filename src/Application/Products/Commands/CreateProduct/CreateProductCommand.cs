@@ -3,7 +3,7 @@ using InvoiceManagementAPI.Domain.Entities;
 
 namespace InvoiceManagementAPI.Application.Products.Commands.CreateProduct;
 
-public record CreateInvoiceCommand : IRequest<int>
+public record CreateProductCommand : IRequest<int>
 {
     public string Name { get; init; } = string.Empty;
     public string Description { get; init; } = string.Empty;
@@ -11,7 +11,7 @@ public record CreateInvoiceCommand : IRequest<int>
     public string Sku { get; init; } = string.Empty;
 }
 
-public class CreateProductCommandHandler : IRequestHandler<CreateInvoiceCommand, int>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
 {
     private readonly IApplicationDbContext _context;
 
@@ -20,7 +20,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateInvoiceCommand,
         _context = context;
     }
 
-    public async Task<int> Handle(CreateInvoiceCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var entity = new Product
         {

@@ -1,8 +1,8 @@
 ﻿namespace InvoiceManagementAPI.Application.Products.Commands.CreateProduct;
 
-public class CreateInvoiceCommandValidator : AbstractValidator<CreateInvoiceCommand>
+public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
 {
-    public CreateInvoiceCommandValidator()
+    public CreateProductCommandValidator()
     {
         RuleFor(v => v.Name)
             .MaximumLength(100)

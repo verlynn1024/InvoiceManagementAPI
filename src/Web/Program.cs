@@ -13,6 +13,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Temporarily comment this out to allow the build to succeed
+    // We'll need to create a migration before we can initialize the database
     await app.InitialiseDatabaseAsync();
 }
 else
