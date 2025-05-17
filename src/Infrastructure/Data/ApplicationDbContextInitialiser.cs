@@ -87,100 +87,15 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
         // Default data
         // Seed, if necessary
-        if (!_context.Customers.Any())
         {
-            _context.Customers.AddRange(
-                new Customer
-                {
-                    Name = "Acme Corporation",
-                    Email = "accounting@acme.com",
-                    Phone = "555-123-4567",
-                    Address = "123 Main St, Somewhere, US 12345",
-                    TaxId = "AC-987654321",
-                },
-                new Customer
-                {
-                    Name = "Globex Industries",
-                    Email = "finance@globex.com",
-                    Phone = "555-987-6543",
-                    Address = "456 Business Ave, Anywhere, US 54321",
-                    TaxId = "GI-123456789",
-                }
-            );
-
-            await _context.SaveChangesAsync();
-        }
-
-        if (!_context.Products.Any())
-        {
-            _context.Products.AddRange(
-                new Product
-                {
-                    Name = "Web Development Service",
-                    Description = "Professional web development services by the hour",
-                    Price = 150.00m,
-                    Sku = "WEB-DEV-001"
-                },
-                new Product
-                {
-                    Name = "Mobile App Development",
-                    Description = "Professional mobile app development services by the hour",
-                    Price = 175.00m,
-                    Sku = "MOB-DEV-001"
-                },
-                new Product
-                {
-                    Name = "DevOps Consulting",
-                    Description = "Expert DevOps consulting and implementation",
-                    Price = 200.00m,
-                    Sku = "DEVOPS-001"
-                }
-            );
-
-            await _context.SaveChangesAsync();
-        }
-
-        if (!_context.Invoices.Any())
-        {
-            var customer = await _context.Customers.FirstAsync();
-            var products = await _context.Products.ToListAsync();
-
-            var invoice = new Invoice
             {
-                InvoiceNumber = "INV-1001",
-                CustomerId = customer.Id,
-                IssueDate = DateTime.Now.AddDays(-15),
-                DueDate = DateTime.Now.AddDays(15),
-                Status = InvoiceStatus.Sent,
-                Notes = "Sample invoice for demo purposes",
-                Items = new List<InvoiceItem>
                 {
-                    new InvoiceItem
-                    {
-                        Description = products[0].Name,
-                        UnitPrice = products[0].Price,
-                        Quantity = 10,
-                        Total = products[0].Price * 10,
-                        ProductId = products[0].Id
-                    },
-                    new InvoiceItem
-                    {
-                        Description = "Custom Website Design",
-                        UnitPrice = 2500.00m,
-                        Quantity = 1,
-                        Total = 2500.00m
-                    }
                 }
-            };
-
-            // Calculate total
-            invoice.TotalAmount = invoice.Items.Sum(i => i.Total);
 
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
