@@ -1,0 +1,10 @@
+﻿global using Ardalis.GuardClauses;
+global using AutoMapper;
+global using AutoMapper.QueryableExtensions;
+global using FluentValidation;
+global using MediatR;
+global using Microsoft.EntityFrameworkCore;
+global using InvoiceManagementAPI.Domain.Entities;
+global using InvoiceManagementAPI.Domain.Events;
+global using InvoiceManagementAPI.Domain.Enums;
+global using InvoiceManagementAPI.Application.Common.Exceptions;
