@@ -87,17 +87,65 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
         // Default data
         // Seed, if necessary
+        if (!_context.Customers.Any())
         {
+            // Add a sample customer
+            var customer = new Customer
             {
-                {
-                }
+                Name = "Sample Customer",
+                Email = "sample@example.com",
+                Phone = "555-1234",
+                Address = "123 Main St",
+                TaxId = "TAX12345"
+            };
+
+            _context.Customers.Add(customer);
+
+            // Add a sample product
+            var product = new Product
+            {
+                Name = "Sample Product",
+                Description = "This is a sample product",
+                Price = 99.99m,
+                Sku = "PROD001"
+            };
+
+            _context.Products.Add(product);
+
+            // Create a sample invoice
+            var invoice = new Invoice
+            {
+                InvoiceNumber = "INV-1000",
+                CustomerId = 1, // Will be assigned after save
+                IssueDate = DateTime.Now,
+                DueDate = DateTime.Now.AddDays(30),
+                Status = InvoiceStatus.Draft,
+                Notes = "Sample invoice",
+                TotalAmount = 99.99m,
+                PaidAmount = 0
+            };
 
             _context.Invoices.Add(invoice);
+            await _context.SaveChangesAsync();
+
+            // Now that we have IDs, add an invoice item
+            var invoiceItem = new InvoiceItem
+            {
+                InvoiceId = invoice.Id,
+                ProductId = product.Id,
+                Description = product.Name,
+                UnitPrice = product.Price,
+                Quantity = 1,
+                Total = product.Price
+            };
+
+            _context.InvoiceItems.Add(invoiceItem);
             await _context.SaveChangesAsync();
         }
     }

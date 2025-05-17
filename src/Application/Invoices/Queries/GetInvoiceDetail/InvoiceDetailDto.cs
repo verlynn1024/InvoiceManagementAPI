@@ -3,7 +3,7 @@ using InvoiceManagementAPI.Domain.Enums;
 
 namespace InvoiceManagementAPI.Application.Invoices.Queries.GetInvoiceDetail;
 
-public class GetProductsWithPaginationQuery
+public class InvoiceDetailDto
 {
     public int Id { get; set; }
     public string InvoiceNumber { get; set; } = string.Empty;
@@ -14,15 +14,14 @@ public class GetProductsWithPaginationQuery
     public InvoiceStatus Status { get; set; }
     public string Notes { get; set; } = string.Empty;
 
-    public GetCustomersWithPaginationQuery Customer { get; set; } = null!;
-
-    public IList<GetInvoicesWithPaginationQuery> Items { get; set; } = new List<GetInvoicesWithPaginationQuery>();
+    public CustomerSummaryDto Customer { get; set; } = null!;
+    public IList<InvoiceItemDto> Items { get; set; } = new List<InvoiceItemDto>();
 
     private class Mapping : Profile
     {
         public Mapping()
         {
-            CreateMap<Invoice, GetProductsWithPaginationQuery>();
+            CreateMap<Invoice, InvoiceDetailDto>();
         }
     }
 }
